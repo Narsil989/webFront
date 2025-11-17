@@ -1,0 +1,62 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+
+# Build output
+dist/
+build/
+.out/
+.vite/
+.esbuild/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# TypeScript / coverage
+coverage/
+*.d.ts
+
+# Cache
+.cache/
+.parcel-cache/
+
+# Dependency directories in subprojects
+**/node_modules/
+
+# Backend DB (local dev file)
+backend/db.json
+
+# Misc
+*.tgz
+*.gzip
+
+# Uncomment to ignore lockfiles if you prefer
+# package-lock.json
+# yarn.lock
