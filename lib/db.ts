@@ -1,177 +1,82 @@
-import fs from 'fs/promises';
-import path from 'path';
+import { kv } from '@vercel/kv';
 
-const DB_PATH = process.env.DATABASE_PATH || path.join(process.cwd(), 'data', 'db.json');
+const ITEMS_KEY = 'items';
 
-interface Database {
-  items: any[];
-  metadata: {
-    created: string;
-    version: string;
-  };
+interface BaseItem {
+  id: string;
+  createdAt: string;
+  updatedAt?: string;
 }
 
-// Ensure data directory exists
-async function ensureDataDir() {
-  const dir = path.dirname(DB_PATH);
-  try {
-    await fs.access(dir);
-  } catch {
-    await fs.mkdir(dir, { recursive: true });
-  }
+interface NewItem<T> {
+  data: T;
 }
 
-// Initialize database if it doesn't exist
-async function initializeDB() {
-  try {
-    await fs.access(DB_PATH);
-  } catch {
-    const initialData: Database = {
-      items: [],
-      metadata: {
-        created: new Date().toISOString(),
-        version: '1.0.0'
-      }
-    };
-    await fs.writeFile(DB_PATH, JSON.stringify(initialData, null, 2));
-  }
+async function readItems<T>(): Promise<(T & BaseItem)[]> {
+  const items = await kv.get<(T & BaseItem)[]>(ITEMS_KEY);
+  return items ?? [];
 }
 
-// Read database with error handling
-export async function readDB<T = Database>(): Promise<T> {
-  await ensureDataDir();
-  await initializeDB();
-
-  try {
-    const data = await fs.readFile(DB_PATH, 'utf-8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.error('Error reading database:', error);
-    throw new Error('Failed to read database');
-  }
+async function writeItems<T>(items: (T & BaseItem)[]) {
+  await kv.set(ITEMS_KEY, items);
 }
 
-// Write database with atomic operations
-export async function writeDB<T = Database>(data: T): Promise<void> {
-  await ensureDataDir();
-
-  const tempPath = `${DB_PATH}.tmp`;
-
-  try {
-    // Write to temp file first
-    await fs.writeFile(tempPath, JSON.stringify(data, null, 2));
-    // Rename atomically
-    await fs.rename(tempPath, DB_PATH);
-  } catch (error) {
-    // Clean up temp file on error
-    try {
-      await fs.unlink(tempPath);
-    } catch {}
-    console.error('Error writing database:', error);
-    throw new Error('Failed to write database');
-  }
+export async function getItems<T = any>(): Promise<(T & BaseItem)[]> {
+  return readItems<T>();
 }
 
-// Concurrent access handling with simple locking
-let isWriting = false;
-const writeQueue: (() => Promise<void>)[] = [];
-
-async function processQueue() {
-  if (isWriting || writeQueue.length === 0) return;
-
-  isWriting = true;
-  const operation = writeQueue.shift();
-
-  if (operation) {
-    await operation();
-  }
-
-  isWriting = false;
-
-  if (writeQueue.length > 0) {
-    processQueue();
-  }
-}
-
-export async function safeWriteDB<T>(data: T): Promise<void> {
-  return new Promise((resolve, reject) => {
-    writeQueue.push(async () => {
-      try {
-        await writeDB(data);
-        resolve();
-      } catch (error) {
-        reject(error);
-      }
-    });
-    processQueue();
-  });
-}
-
-// Get all items
-export async function getItems<T = any>(): Promise<T[]> {
-  const db = await readDB<Database>();
-  return db.items as T[];
-}
-
-// Add a new item
-export async function addItem<T = any>(item: T): Promise<T & { id: string; createdAt: string }> {
-  const db = await readDB<Database>();
-
-  const newItem = {
-    ...item,
-    id: Date.now().toString(),
-    createdAt: new Date().toISOString()
+export async function addItem<T = any>(
+  item: NewItem<T>['data']
+): Promise<T & BaseItem> {
+  const items = await readItems<T>();
+  const newItem: T & BaseItem = {
+    ...(item as T),
+    id: crypto.randomUUID(),
+    createdAt: new Date().toISOString(),
   };
 
-  db.items.push(newItem);
-  await safeWriteDB(db);
-
+  // Prepend newest item
+  const updated = [newItem, ...items];
+  await writeItems(updated);
   return newItem;
 }
 
-// Get item by ID
-export async function getItemById<T = any>(id: string): Promise<T | null> {
-  const db = await readDB<Database>();
-  const item = db.items.find((item: any) => item.id === id);
-  return item || null;
+export async function getItemById<T = any>(id: string): Promise<(T & BaseItem) | null> {
+  const items = await readItems<T>();
+  const found = items.find((item) => item.id === id);
+  return found ?? null;
 }
 
-// Update item by ID
 export async function updateItem<T = any>(
   id: string,
   updates: Partial<T>
-): Promise<T | null> {
-  const db = await readDB<Database>();
-
-  const index = db.items.findIndex((item: any) => item.id === id);
+): Promise<(T & BaseItem) | null> {
+  const items = await readItems<T>();
+  const index = items.findIndex((item) => item.id === id);
 
   if (index === -1) {
     return null;
   }
 
-  db.items[index] = {
-    ...db.items[index],
+  const updated = {
+    ...items[index],
     ...updates,
-    updatedAt: new Date().toISOString()
-  };
+    updatedAt: new Date().toISOString(),
+  } as T & BaseItem;
 
-  await safeWriteDB(db);
-
-  return db.items[index];
+  items[index] = updated;
+  await writeItems(items);
+  return updated;
 }
 
-// Delete item by ID
 export async function deleteItem(id: string): Promise<boolean> {
-  const db = await readDB<Database>();
+  const items = await readItems();
+  const filtered = items.filter((item) => item.id !== id);
 
-  const initialLength = db.items.length;
-  db.items = db.items.filter((item: any) => item.id !== id);
-
-  if (db.items.length === initialLength) {
+  if (filtered.length === items.length) {
     return false;
   }
 
-  await safeWriteDB(db);
-
+  await writeItems(filtered);
   return true;
 }
