@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "title": "David Tracker",
+    "bets": "Bets",
+    "addBet": "Add Bet"
+  },
+  "home": {
+    "title": "dY\"S David Betting",
+    "subtitle": "We bet on David's arrival date, weight, length, and unibrow",
+    "cta": "Place a bet",
+    "error": "Failed to load entries"
+  },
+  "add": {
+    "title": "Add Bet",
+    "subtitle": "Add your name, David's date, weight to 3 decimals, length in cm, and whether he will have a unibrow at birth"
+  },
+  "form": {
+    "yourName": {
+      "label": "Your Name *",
+      "placeholder": "Enter your name"
+    },
+    "sectionTitle": "David's Information",
+    "dateOfBirth": "Date of Birth *",
+    "weight": "Weight *",
+    "length": "Length *",
+    "unibrow": "Will he have a unibrow?",
+    "unitWeight": "kg",
+    "unitLength": "cm",
+    "actions": {
+      "save": "Save Entry",
+      "saving": "Saving...",
+      "cancel": "Cancel"
+    },
+    "error": {
+      "generic": "Something went wrong. Please try again.",
+      "create": "Failed to create entry"
+    }
+  },
+  "list": {
+    "sectionTitle": "Bets",
+    "emptyTitle": "No entries yet",
+    "emptySubtitle": "Start tracking David's growth by adding your first entry!",
+    "labels": {
+      "dob": "Date of Birth",
+      "weight": "Weight",
+      "length": "Length",
+      "unibrow": "Unibrow"
+    },
+    "values": {
+      "yes": "Yes",
+      "no": "No"
+    },
+    "stamp": "Logged {{date}}"
+  },
+  "api": {
+    "validation": {
+      "name": "Your name is required",
+      "david": "All David's information fields are required"
+    },
+    "error": {
+      "fetch": "Error fetching entries",
+      "create": "Error creating entry"
+    }
+  }
+}

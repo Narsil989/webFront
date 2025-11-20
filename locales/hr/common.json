@@ -1,0 +1,65 @@
+{
+  "nav": {
+    "title": "David Tracker",
+    "bets": "Oklade",
+    "addBet": "Dodaj okladu"
+  },
+  "home": {
+    "title": "dY'S Davidova kladionica",
+    "subtitle": "Kladimo se na Davidov datum dolaska, kilažu, veličinu i spojenu obrvu",
+    "cta": "Postavi okladu",
+    "error": "Neuspjelo učitavanje unosa"
+  },
+  "add": {
+    "title": "Dodaj okladu",
+    "subtitle": "Dodaj svoje ime, Davidov datum, težinu na tri decimale, dužinu u cm i hoće li imati spojenu obrvu pri rođenju"
+  },
+  "form": {
+    "yourName": {
+      "label": "Tvoje ime *",
+      "placeholder": "Upiši ime"
+    },
+    "sectionTitle": "Informacije o Davidu",
+    "dateOfBirth": "Datum rođenja *",
+    "weight": "Težina *",
+    "length": "Dužina *",
+    "unibrow": "Hoće li imati spojenu obrvu?",
+    "unitWeight": "kg",
+    "unitLength": "cm",
+    "actions": {
+      "save": "Spremi unos",
+      "saving": "Spremanje...",
+      "cancel": "Odustani"
+    },
+    "error": {
+      "generic": "Došlo je do greške. Pokušaj ponovo.",
+      "create": "Spremanje unosa nije uspjelo"
+    }
+  },
+  "list": {
+    "sectionTitle": "Oklade",
+    "emptyTitle": "Još nema unosa",
+    "emptySubtitle": "Počni pratiti Davidov rast dodavanjem prve oklade!",
+    "labels": {
+      "dob": "Datum rođenja",
+      "weight": "Težina",
+      "length": "Dužina",
+      "unibrow": "Spojena obrva"
+    },
+    "values": {
+      "yes": "Da",
+      "no": "Ne"
+    },
+    "stamp": "Uneseno {{date}}"
+  },
+  "api": {
+    "validation": {
+      "name": "Ime je obavezno",
+      "david": "Sva polja o Davidu su obavezna"
+    },
+    "error": {
+      "fetch": "Dogodila se greška pri dohvatu unosa",
+      "create": "Dogodila se greška pri spremanju unosa"
+    }
+  }
+}
