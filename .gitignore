@@ -61,3 +61,5 @@ backend/db.json
 # Uncomment to ignore lockfiles if you prefer
 # package-lock.json
 # yarn.lock
+
+.vercel
