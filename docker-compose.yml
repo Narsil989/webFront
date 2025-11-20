@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  nextjs-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: nextjs-docker-app
+    ports:
+      - "3001:3000"
+    volumes:
+      # Mount data directory for JSON database persistence
+      - ./data:/app/data
+    environment:
+      - NODE_ENV=production
+      - DATABASE_PATH=/app/data/db.json
+      - NEXT_TELEMETRY_DISABLED=1
+    restart: unless-stopped
+    networks:
+      - nextjs-network
+
+networks:
+  nextjs-network:
+    driver: bridge
