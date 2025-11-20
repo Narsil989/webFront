@@ -1,6 +1,7 @@
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
 
 const ITEMS_KEY = 'items';
+const redis = Redis.fromEnv();
 
 interface BaseItem {
   id: string;
@@ -8,26 +9,20 @@ interface BaseItem {
   updatedAt?: string;
 }
 
-interface NewItem<T> {
-  data: T;
-}
-
 async function readItems<T>(): Promise<(T & BaseItem)[]> {
-  const items = await kv.get<(T & BaseItem)[]>(ITEMS_KEY);
+  const items = await redis.get<(T & BaseItem)[]>(ITEMS_KEY);
   return items ?? [];
 }
 
 async function writeItems<T>(items: (T & BaseItem)[]) {
-  await kv.set(ITEMS_KEY, items);
+  await redis.set(ITEMS_KEY, items);
 }
 
 export async function getItems<T = any>(): Promise<(T & BaseItem)[]> {
   return readItems<T>();
 }
 
-export async function addItem<T = any>(
-  item: NewItem<T>['data']
-): Promise<T & BaseItem> {
+export async function addItem<T = any>(item: T): Promise<T & BaseItem> {
   const items = await readItems<T>();
   const newItem: T & BaseItem = {
     ...(item as T),
@@ -35,7 +30,6 @@ export async function addItem<T = any>(
     createdAt: new Date().toISOString(),
   };
 
-  // Prepend newest item
   const updated = [newItem, ...items];
   await writeItems(updated);
   return newItem;
