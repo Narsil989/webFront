@@ -3,29 +3,8 @@
 import Link from 'next/link';
 import { Baby, LineChart, Plus } from 'lucide-react';
 import { t } from '@/lib/i18n';
-import { useRouter } from 'next/navigation';
-import { useRef } from 'react';
 
 export function Navigation() {
-  const router = useRouter();
-  const clicks = useRef(0);
-  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const handleSecretNav = (e: React.MouseEvent) => {
-    clicks.current += 1;
-    if (timer.current) clearTimeout(timer.current);
-    timer.current = setTimeout(() => {
-      clicks.current = 0;
-    }, 1200);
-
-    // On the 5th click, prevent the normal home navigation and go to /admin
-    if (clicks.current >= 5) {
-      e.preventDefault();
-      clicks.current = 0;
-      router.push('/admin');
-    }
-  };
-
   return (
     <nav className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-xl sticky top-0 z-50 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,7 +12,6 @@ export function Navigation() {
           <Link
             href="/"
             className="flex items-center gap-3 text-xl sm:text-2xl font-bold hover:scale-105 transition-transform group"
-            onClick={handleSecretNav}
           >
             <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors">
               <Baby className="w-6 h-6" />
