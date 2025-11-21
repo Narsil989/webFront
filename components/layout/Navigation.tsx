@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { Baby, LineChart, Plus } from 'lucide-react';
 import { t } from '@/lib/i18n';
@@ -24,6 +26,13 @@ export function Navigation() {
             >
               <LineChart className="w-4 h-4" />
               <span>{t('nav.bets')}</span>
+            </Link>
+            <Link
+              href="/rank"
+              className="flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 text-sm sm:text-base font-semibold rounded-lg hover:bg-white/20 transition-all backdrop-blur-sm border border-white/30"
+            >
+              <LineChart className="w-4 h-4" />
+              <span>{t('nav.rank')}</span>
             </Link>
             <Link
               href="/items/add"

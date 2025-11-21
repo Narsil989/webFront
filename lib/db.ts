@@ -1,6 +1,7 @@
 import { Redis } from '@upstash/redis';
 
 const ITEMS_KEY = 'items';
+const ACTUALS_KEY = 'actuals';
 const redis = Redis.fromEnv();
 
 interface BaseItem {
@@ -16,6 +17,23 @@ async function readItems<T>(): Promise<(T & BaseItem)[]> {
 
 async function writeItems<T>(items: (T & BaseItem)[]) {
   await redis.set(ITEMS_KEY, items);
+}
+
+type Actuals = {
+  date: string;
+  weight: number;
+  length: number;
+  unibrow: boolean;
+  savedAt: string;
+};
+
+async function readActuals(): Promise<Actuals | null> {
+  const value = await redis.get<Actuals>(ACTUALS_KEY);
+  return value ?? null;
+}
+
+async function writeActuals(actuals: Actuals) {
+  await redis.set(ACTUALS_KEY, actuals);
 }
 
 export async function getItems<T = any>(): Promise<(T & BaseItem)[]> {
@@ -73,4 +91,32 @@ export async function deleteItem(id: string): Promise<boolean> {
 
   await writeItems(filtered);
   return true;
+}
+
+export async function getActuals(): Promise<Actuals | null> {
+  const actuals = await readActuals();
+  if (!actuals) return null;
+  return {
+    ...actuals,
+    weight: Number(actuals.weight),
+    length: Number(actuals.length),
+    unibrow: Boolean(actuals.unibrow),
+  };
+}
+
+export async function setActuals(payload: {
+  date: string;
+  weight: number;
+  length: number;
+  unibrow: boolean;
+}): Promise<Actuals> {
+  const actuals: Actuals = {
+    date: payload.date,
+    weight: payload.weight,
+    length: payload.length,
+    unibrow: payload.unibrow,
+    savedAt: new Date().toISOString(),
+  };
+  await writeActuals(actuals);
+  return actuals;
 }

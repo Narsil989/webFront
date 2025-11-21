@@ -2,28 +2,29 @@
   "nav": {
     "title": "David Tracker",
     "bets": "Oklade",
-    "addBet": "Dodaj okladu"
+    "addBet": "Dodaj okladu",
+    "rank": "Poredak"
   },
   "home": {
     "title": "Davidova kladionica",
-    "subtitle": "Kladimo se na Davidov datum dolaska, kilažu, veličinu i spojenu obrvu",
+    "subtitle": "Kladimo se na Davidov datum dolaska, kilazu, velicinu i spojenu obrvu",
     "cta": "Postavi okladu",
-    "error": "Neuspjelo učitavanje unosa"
+    "error": "Neuspjelo ucitavanje unosa"
   },
   "add": {
     "title": "Dodaj okladu",
-    "subtitle": "Dodaj svoje ime, Davidov datum, težinu na tri decimale, dužinu u cm i hoće li imati spojenu obrvu pri rođenju"
+    "subtitle": "Dodaj svoje ime, Davidov datum, tezinu na tri decimale, duzinu u cm i hoce li imati spojenu obrvu pri rodjenju"
   },
   "form": {
     "yourName": {
       "label": "Tvoje ime *",
-      "placeholder": "Upiši ime"
+      "placeholder": "Upisi ime"
     },
     "sectionTitle": "Informacije o Davidu",
-    "dateOfBirth": "Datum rođenja *",
-    "weight": "Težina *",
-    "length": "Dužina *",
-    "unibrow": "Hoće li imati spojenu obrvu?",
+    "dateOfBirth": "Datum rodjenja *",
+    "weight": "Tezina *",
+    "length": "Duzina *",
+    "unibrow": "Hoce li imati spojenu obrvu?",
     "unitWeight": "kg",
     "unitLength": "cm",
     "actions": {
@@ -32,34 +33,62 @@
       "cancel": "Odustani"
     },
     "error": {
-      "generic": "Došlo je do greške. Pokušaj ponovo.",
+      "generic": "Doslo je do greske. Pokusaj ponovo.",
       "create": "Spremanje unosa nije uspjelo"
     }
   },
   "list": {
     "sectionTitle": "Oklade",
-    "emptyTitle": "Još nema unosa",
-    "emptySubtitle": "Počni pratiti Davidov rast dodavanjem prve oklade!",
+    "emptyTitle": "Jos nema unosa",
+    "emptySubtitle": "Pocni pratiti Davidov rast dodavanjem prve oklade!",
     "labels": {
-      "dob": "Datum rođenja",
-      "weight": "Težina",
-      "length": "Dužina",
+      "dob": "Datum rodjenja",
+      "weight": "Tezina",
+      "length": "Duzina",
       "unibrow": "Spojena obrva"
     },
     "values": {
       "yes": "Da",
       "no": "Ne"
     },
-    "stamp": "Uneseno {{date}}"
+    "stamp": "Uneseno {{date}}",
+    "results": {
+      "title": "Rezultati",
+      "subtitle": "Tacni pogoci i najblizi unosi",
+      "exact": "Tacno",
+      "closest": "Najblizi",
+      "none": "Jos nema pogodaka"
+    }
+  },
+  "rank": {
+    "title": "Poredak pogadjanja",
+    "subtitle": "Poredak trenutnih oklada po kategorijama",
+    "unknown": "?",
+    "empty": "Nema unosa",
+    "expand": "Prosiri",
+    "collapse": "Smanji",
+    "fields": {
+      "date": "Datum",
+      "weight": "Tezina",
+      "length": "Duzina",
+      "unibrow": "Obrva"
+    },
+    "headers": {
+      "date": "Datum rođenja:",
+      "weight": "Težina:",
+      "length": "Dužina:",
+      "unibrow": "Ima unibrow:"
+    }
   },
   "api": {
     "validation": {
       "name": "Ime je obavezno",
-      "david": "Sva polja o Davidu su obavezna"
+      "david": "Sva polja o Davidu su obavezna",
+      "actuals": "Datum, tezina, duzina i obrva su obavezni"
     },
     "error": {
-      "fetch": "Dogodila se greška pri dohvatu unosa",
-      "create": "Dogodila se greška pri spremanju unosa"
+      "fetch": "Dogodila se greska pri dohvatu unosa",
+      "create": "Dogodila se greska pri spremanju unosa"
     }
   }
 }

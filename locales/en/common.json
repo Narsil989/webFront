@@ -2,10 +2,11 @@
   "nav": {
     "title": "David Tracker",
     "bets": "Bets",
-    "addBet": "Add Bet"
+    "addBet": "Add Bet",
+    "rank": "Rankings"
   },
   "home": {
-    "title": "dY\"S David Betting",
+    "title": "David Betting",
     "subtitle": "We bet on David's arrival date, weight, length, and unibrow",
     "cta": "Place a bet",
     "error": "Failed to load entries"
@@ -50,12 +51,40 @@
       "yes": "Yes",
       "no": "No"
     },
-    "stamp": "Logged {{date}}"
+    "stamp": "Logged {{date}}",
+    "results": {
+      "title": "Results",
+      "subtitle": "Exact hits and closest guesses",
+      "exact": "Exact",
+      "closest": "Closest",
+      "none": "No matches yet"
+    }
+  },
+  "rank": {
+    "title": "Rankings",
+    "subtitle": "Rankings of current bets by category",
+    "unknown": "?",
+    "empty": "No entries",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "fields": {
+      "date": "Date",
+      "weight": "Weight",
+      "length": "Length",
+      "unibrow": "Unibrow"
+    },
+    "headers": {
+      "date": "Date of birth:",
+      "weight": "Weight:",
+      "length": "Length:",
+      "unibrow": "Has unibrow:"
+    }
   },
   "api": {
     "validation": {
       "name": "Your name is required",
-      "david": "All David's information fields are required"
+      "david": "All David's information fields are required",
+      "actuals": "Date, weight, length, and unibrow are required"
     },
     "error": {
       "fetch": "Error fetching entries",

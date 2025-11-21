@@ -4,6 +4,14 @@ import { motion } from 'framer-motion';
 import { Calendar, Weight, Ruler, User, Check, X } from 'lucide-react';
 import { t } from '@/lib/i18n';
 
+interface Actuals {
+  date: string;
+  weight: number;
+  length: number;
+  unibrow: boolean;
+  savedAt?: string;
+}
+
 interface Item {
   id: string;
   yourName: string;
@@ -16,6 +24,7 @@ interface Item {
 
 interface ItemListProps {
   items: Item[];
+  actuals: Actuals | null;
 }
 
 const formatDate = (date: string) =>
@@ -28,19 +37,63 @@ const formatDate = (date: string) =>
 const formatCreatedStamp = (date: string) =>
   t('list.stamp', { date: new Date(date).toLocaleDateString('hr-HR') });
 
-const getDateColor = (date: string) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
+const getDateColor = (date: string, compareTo: Date) => {
   const target = new Date(date);
   target.setHours(0, 0, 0, 0);
 
-  if (target.getTime() === today.getTime()) return 'text-green-600';
-  if (target.getTime() < today.getTime()) return 'text-red-600';
+  const base = new Date(compareTo);
+  base.setHours(0, 0, 0, 0);
+
+  if (target.getTime() === base.getTime()) return 'text-green-600';
+  if (target.getTime() < base.getTime()) return 'text-red-600';
   return 'text-orange-500';
 };
 
-export function ItemList({ items }: ItemListProps) {
+const toDays = (d: Date) => Math.floor(d.getTime() / (1000 * 60 * 60 * 24));
+
+const findClosest = (items: Item[], selector: (item: Item) => number, target: number | null) => {
+  if (target === null || Number.isNaN(target)) return { exact: [] as Item[], closest: [] as Item[] };
+
+  const exact = items.filter((item) => selector(item) === target);
+  const remaining = items.filter((item) => !exact.includes(item));
+
+  if (remaining.length === 0) return { exact, closest: [] as Item[] };
+
+  const diffs = remaining.map((item) => ({
+    item,
+    diff: Math.abs(selector(item) - target),
+  }));
+  const minDiff = Math.min(...diffs.map((d) => d.diff));
+  const closest = diffs.filter((d) => d.diff === minDiff).map((d) => d.item);
+
+  return { exact, closest };
+};
+
+export function ItemList({ items, actuals }: ItemListProps) {
+  const comparisonDate = actuals?.date ? new Date(actuals.date) : new Date();
+
+  const dateResults = (() => {
+    if (!actuals?.date) return { exact: [] as Item[], closest: [] as Item[] };
+    const baseDays = toDays(new Date(actuals.date));
+    const exact = items.filter((item) => toDays(new Date(item.davidDateOfBirth)) === baseDays);
+    const remaining = items.filter((item) => !exact.includes(item));
+    if (remaining.length === 0) return { exact, closest: [] as Item[] };
+    const diffs = remaining.map((item) => ({
+      item,
+      diff: Math.abs(toDays(new Date(item.davidDateOfBirth)) - baseDays),
+    }));
+    const minDiff = Math.min(...diffs.map((d) => d.diff));
+    const closest = diffs.filter((d) => d.diff === minDiff).map((d) => d.item);
+    return { exact, closest };
+  })();
+
+  const weightResults = findClosest(items, (i) => Number(i.davidWeight), actuals?.weight ?? null);
+  const lengthResults = findClosest(items, (i) => Number(i.davidLength), actuals?.length ?? null);
+  const unibrowResults =
+    typeof actuals?.unibrow === 'boolean'
+      ? { exact: items.filter((i) => i.hasUnibrow === actuals.unibrow), closest: [] as Item[] }
+      : { exact: [] as Item[], closest: [] as Item[] };
+
   if (items.length === 0) {
     return (
       <motion.div
@@ -64,12 +117,63 @@ export function ItemList({ items }: ItemListProps) {
   }
 
   return (
-    <div className="
-      grid
-      grid-cols-1
-      lg:grid-cols-2
-      gap-6
-    ">
+    <>
+      {(actuals?.date || actuals?.weight || actuals?.length || typeof actuals?.unibrow === 'boolean') && (
+        <div className="mb-6">
+          <div className="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+              <div className="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700 uppercase tracking-wide">
+                {t('list.results.title')}
+              </div>
+              <div className="text-sm text-gray-600">
+                {t('list.results.subtitle')}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {actuals?.date && (
+                <ResultCard
+                  label={t('list.labels.dob')}
+                  actual={formatDate(actuals.date)}
+                  exact={dateResults.exact}
+                  closest={dateResults.closest}
+                />
+              )}
+              {typeof actuals?.weight === 'number' && (
+                <ResultCard
+                  label={t('list.labels.weight')}
+                  actual={`${actuals.weight} ${t('form.unitWeight')}`}
+                  exact={weightResults.exact}
+                  closest={weightResults.closest}
+                />
+              )}
+              {typeof actuals?.length === 'number' && (
+                <ResultCard
+                  label={t('list.labels.length')}
+                  actual={`${actuals.length} ${t('form.unitLength')}`}
+                  exact={lengthResults.exact}
+                  closest={lengthResults.closest}
+                />
+              )}
+              {typeof actuals?.unibrow === 'boolean' && (
+                <ResultCard
+                  label={t('list.labels.unibrow')}
+                  actual={actuals.unibrow ? t('list.values.yes') : t('list.values.no')}
+                  exact={unibrowResults.exact}
+                  closest={[]}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="
+        grid
+        grid-cols-1
+        lg:grid-cols-2
+        gap-6
+      ">
       {items.map((item, index) => (
         <motion.div
           key={item.id}
@@ -121,7 +225,7 @@ export function ItemList({ items }: ItemListProps) {
                   <Calendar className="w-4 h-4" />
                   <span className="text-xs font-bold uppercase tracking-wide">{t('list.labels.dob')}</span>
                 </div>
-                <div className={`text-sm font-bold ${getDateColor(item.davidDateOfBirth)}`}>
+                <div className={`text-sm font-bold ${getDateColor(item.davidDateOfBirth, comparisonDate)}`}>
                   {formatDate(item.davidDateOfBirth)}
                 </div>
               </motion.div>
@@ -171,6 +275,73 @@ export function ItemList({ items }: ItemListProps) {
           </div>
         </motion.div>
       ))}
+      </div>
+    </>
+  );
+}
+
+interface ResultCardProps {
+  label: string;
+  actual: string;
+  exact: Item[];
+  closest: Item[];
+}
+
+function ResultCard({ label, actual, exact, closest }: ResultCardProps) {
+  return (
+    <div className="border border-gray-200 rounded-xl p-4 bg-gradient-to-br from-gray-50 to-white">
+      <div className="flex items-center justify-between mb-3">
+        <span className="text-sm font-semibold text-gray-700">{label}</span>
+        <span className="text-sm text-blue-700 font-semibold">{actual}</span>
+      </div>
+      <div className="space-y-2">
+        <ResultRow
+          title={t('list.results.exact')}
+          items={exact}
+          badgeColor="bg-green-100 text-green-700"
+        />
+        {closest.length > 0 && (
+          <ResultRow
+            title={t('list.results.closest')}
+            items={closest}
+            badgeColor="bg-orange-100 text-orange-700"
+          />
+        )}
+        {exact.length === 0 && closest.length === 0 && (
+          <p className="text-sm text-gray-500">{t('list.results.none')}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+interface ResultRowProps {
+  title: string;
+  items: Item[];
+  badgeColor: string;
+}
+
+function ResultRow({ title, items, badgeColor }: ResultRowProps) {
+  if (items.length === 0) return null;
+
+  return (
+    <div>
+      <div className="flex items-center gap-2 mb-1">
+        <span className="text-xs font-semibold uppercase tracking-wide text-gray-600">{title}</span>
+        <span className={`px-2 py-0.5 rounded-full text-[11px] font-semibold ${badgeColor}`}>
+          {items.length}
+        </span>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {items.map((item) => (
+          <span
+            key={item.id}
+            className="px-2 py-1 text-xs font-semibold bg-white border border-gray-200 rounded-lg shadow-sm"
+          >
+            {item.yourName}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }

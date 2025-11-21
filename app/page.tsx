@@ -2,6 +2,7 @@ import { getItems } from '@/lib/db';
 import { Container } from '@/components/layout/Container';
 import { ItemList } from '@/components/features/ItemList';
 import Link from 'next/link';
+import { getActuals } from '@/lib/db';
 import { t } from '@/lib/i18n';
 
 // This page will be dynamically rendered to always show fresh data
@@ -19,10 +20,12 @@ interface Item {
 
 export default async function HomePage() {
   let items: Item[] = [];
+  let actuals = null;
   let error = '';
 
   try {
     items = await getItems<Item>();
+    actuals = await getActuals();
   } catch (err) {
     error = t('home.error');
     console.error('Error loading entries:', err);
@@ -47,7 +50,7 @@ export default async function HomePage() {
         </div>
       )}
 
-      <ItemList items={items} />
+      <ItemList items={items} actuals={actuals} />
 
       {items.length > 0 && (
         <div className="mt-12 text-center">
