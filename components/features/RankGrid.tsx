@@ -272,9 +272,13 @@ export default function RankGrid({ items, actuals }: { items: Item[]; actuals: A
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold mb-2">{t('rank.title')}</h1>
-        <p className="text-sm text-gray-600">{t('rank.subtitle')}</p>
+      <div className="mb-8">
+        <div className="flex items-center gap-3 mb-2">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            {t('home.title')}
+          </h1>
+        </div>
+        <p className="text-base sm:text-lg text-gray-600">{t('rank.subtitle')}</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
