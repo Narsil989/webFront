@@ -1,22 +1,12 @@
-import { Redis } from '@upstash/redis';
+import fs from 'fs/promises';
+import path from 'path';
 
-const ITEMS_KEY = 'items';
-const ACTUALS_KEY = 'actuals';
-const redis = Redis.fromEnv();
+const DB_PATH = process.env.DATABASE_PATH || path.join(process.cwd(), 'data', 'db.json');
 
 interface BaseItem {
   id: string;
   createdAt: string;
   updatedAt?: string;
-}
-
-async function readItems<T>(): Promise<(T & BaseItem)[]> {
-  const items = await redis.get<(T & BaseItem)[]>(ITEMS_KEY);
-  return items ?? [];
-}
-
-async function writeItems<T>(items: (T & BaseItem)[]) {
-  await redis.set(ITEMS_KEY, items);
 }
 
 type Actuals = {
@@ -27,13 +17,89 @@ type Actuals = {
   savedAt: string;
 };
 
+interface Database {
+  items: any[];
+  actuals: Actuals | null;
+  metadata: {
+    created: string;
+    version: string;
+  };
+}
+
+async function ensureDataDir() {
+  const dir = path.dirname(DB_PATH);
+  try {
+    await fs.access(dir);
+  } catch {
+    await fs.mkdir(dir, { recursive: true });
+  }
+}
+
+async function initializeDB() {
+  try {
+    await fs.access(DB_PATH);
+  } catch {
+    const initialData: Database = {
+      items: [],
+      actuals: null,
+      metadata: {
+        created: new Date().toISOString(),
+        version: '1.0.0',
+      },
+    };
+    await fs.writeFile(DB_PATH, JSON.stringify(initialData, null, 2));
+  }
+}
+
+async function readDB(): Promise<Database> {
+  await ensureDataDir();
+  await initializeDB();
+
+  try {
+    const data = await fs.readFile(DB_PATH, 'utf-8');
+    return JSON.parse(data) as Database;
+  } catch (error) {
+    console.error('Error reading database:', error);
+    throw new Error('Failed to read database');
+  }
+}
+
+async function writeDB(data: Database): Promise<void> {
+  await ensureDataDir();
+  const tempPath = `${DB_PATH}.tmp`;
+
+  try {
+    await fs.writeFile(tempPath, JSON.stringify(data, null, 2));
+    await fs.rename(tempPath, DB_PATH);
+  } catch (error) {
+    try {
+      await fs.unlink(tempPath);
+    } catch {}
+    console.error('Error writing database:', error);
+    throw new Error('Failed to write database');
+  }
+}
+
+async function readItems<T>(): Promise<(T & BaseItem)[]> {
+  const db = await readDB();
+  return (db.items ?? []) as (T & BaseItem)[];
+}
+
+async function writeItems<T>(items: (T & BaseItem)[]) {
+  const db = await readDB();
+  db.items = items;
+  await writeDB(db);
+}
+
 async function readActuals(): Promise<Actuals | null> {
-  const value = await redis.get<Actuals>(ACTUALS_KEY);
-  return value ?? null;
+  const db = await readDB();
+  return db.actuals ?? null;
 }
 
 async function writeActuals(actuals: Actuals) {
-  await redis.set(ACTUALS_KEY, actuals);
+  const db = await readDB();
+  db.actuals = actuals;
+  await writeDB(db);
 }
 
 export async function getItems<T = any>(): Promise<(T & BaseItem)[]> {

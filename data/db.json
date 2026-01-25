@@ -1,26 +1,348 @@
 {
   "items": [
-    {
-      "yourName": "sima",
-      "davidDateOfBirth": "2025-11-20",
-      "davidWeight": "3",
-      "davidLength": "50",
-      "notes": "",
-      "id": "1763581787631",
-      "createdAt": "2025-11-19T19:49:47.632Z"
-    },
-    {
-      "yourName": "sima2",
-      "davidDateOfBirth": "2025-11-21",
-      "davidWeight": "3.1",
-      "davidLength": "45",
-      "notes": "",
-      "id": "1763582375637",
-      "createdAt": "2025-11-19T19:59:35.637Z"
-    }
-  ],
+  {
+    "yourName": "Hercegovka",
+    "davidDateOfBirth": "2025-11-23",
+    "davidWeight": "3520",
+    "davidLength": "53",
+    "hasUnibrow": false,
+    "id": "b3fd266c-0d9b-4193-80bf-2b20d9362708",
+    "createdAt": "2025-11-21T23:03:45.045Z"
+  },
+  {
+    "yourName": "Darija",
+    "davidDateOfBirth": "2025-12-03",
+    "davidWeight": "3.4",
+    "davidLength": "42",
+    "hasUnibrow": true,
+    "id": "8bfb8085-23e4-46e0-8621-62b70ebbd186",
+    "createdAt": "2025-11-21T19:07:42.503Z"
+  },
+  {
+    "yourName": "Anja",
+    "davidDateOfBirth": "2025-11-28",
+    "davidWeight": "3.35",
+    "davidLength": "49",
+    "hasUnibrow": false,
+    "id": "edc14b7d-d19a-44ca-9e42-1555cc2c8a06",
+    "createdAt": "2025-11-21T19:01:20.823Z"
+  },
+  {
+    "yourName": "Matej",
+    "davidDateOfBirth": "2025-11-24",
+    "davidWeight": "3.252",
+    "davidLength": "52",
+    "hasUnibrow": false,
+    "id": "c64738c2-6680-4b30-83a7-201a8ec0b546",
+    "createdAt": "2025-11-21T18:58:04.327Z"
+  },
+  {
+    "yourName": "Kumova skoro žena ",
+    "davidDateOfBirth": "2025-11-27",
+    "davidWeight": "3.4",
+    "davidLength": "50",
+    "hasUnibrow": false,
+    "id": "32d0260c-5d3a-463f-b558-fee9bf481693",
+    "createdAt": "2025-11-21T16:27:55.682Z"
+  },
+  {
+    "yourName": "Maja",
+    "davidDateOfBirth": "2025-12-02",
+    "davidWeight": "3.75",
+    "davidLength": "53",
+    "hasUnibrow": true,
+    "id": "d207d2f6-b6b6-4c59-b0af-4ba5574fb572",
+    "createdAt": "2025-11-21T16:23:36.193Z"
+  },
+  {
+    "yourName": "Mia",
+    "davidDateOfBirth": "2025-12-02",
+    "davidWeight": "3.5",
+    "davidLength": "50",
+    "hasUnibrow": true,
+    "id": "fc488501-696f-421a-9c7e-25caead654e2",
+    "createdAt": "2025-11-21T16:21:44.836Z"
+  },
+  {
+    "yourName": "Bori",
+    "davidDateOfBirth": "2025-11-23",
+    "davidWeight": "3.55",
+    "davidLength": "52",
+    "hasUnibrow": true,
+    "id": "8ce76b55-eac4-46cc-90f6-7c1f37d2509a",
+    "createdAt": "2025-11-21T11:31:38.356Z"
+  },
+  {
+    "yourName": "Nina",
+    "davidDateOfBirth": "2025-11-22",
+    "davidWeight": "3.3",
+    "davidLength": "51",
+    "hasUnibrow": true,
+    "id": "d8f3d119-f271-42b4-b635-f3ad43ebafa7",
+    "createdAt": "2025-11-21T10:55:10.852Z"
+  },
+  {
+    "yourName": "Kata",
+    "davidDateOfBirth": "2025-11-26",
+    "davidWeight": "3.42",
+    "davidLength": "50",
+    "hasUnibrow": true,
+    "id": "01fad862-f718-4dca-a551-c400cf24f38f",
+    "createdAt": "2025-11-21T08:48:26.070Z"
+  },
+  {
+    "yourName": "Veronika ",
+    "davidDateOfBirth": "2025-11-29",
+    "davidWeight": "3.550",
+    "davidLength": "51",
+    "hasUnibrow": false,
+    "id": "eefd1be5-395a-41e8-a6ad-e6dc4f4af464",
+    "createdAt": "2025-11-21T08:36:15.451Z"
+  },
+  {
+    "yourName": "Luna ",
+    "davidDateOfBirth": "2025-12-01",
+    "davidWeight": "3.55",
+    "davidLength": "51",
+    "hasUnibrow": false,
+    "id": "e15163cd-60a1-4425-aae6-42160b3665b5",
+    "createdAt": "2025-11-21T08:33:40.106Z"
+  },
+  {
+    "yourName": "Ujo",
+    "davidDateOfBirth": "2025-11-30",
+    "davidWeight": "3.3",
+    "davidLength": "46",
+    "hasUnibrow": true,
+    "id": "cf322291-3865-439c-b3f3-7be831fad44a",
+    "createdAt": "2025-11-21T08:12:42.249Z"
+  },
+  {
+    "yourName": "Vesna",
+    "davidDateOfBirth": "2025-12-05",
+    "davidWeight": "3740",
+    "davidLength": "52",
+    "hasUnibrow": false,
+    "id": "e59e2fea-0f8f-4387-b6ba-d876fe662196",
+    "createdAt": "2025-11-21T07:46:05.345Z"
+  },
+  {
+    "yourName": "Magi",
+    "davidDateOfBirth": "2025-12-09",
+    "davidWeight": "2.200",
+    "davidLength": "54",
+    "hasUnibrow": true,
+    "id": "77d34717-27fc-426d-84fc-55de4d4218f5",
+    "createdAt": "2025-11-21T07:23:11.309Z"
+  },
+  {
+    "yourName": "Davide",
+    "davidDateOfBirth": "2025-11-26",
+    "davidWeight": "3.2",
+    "davidLength": "51",
+    "hasUnibrow": false,
+    "id": "23cd1930-0598-439c-ab9c-386529c599d3",
+    "createdAt": "2025-11-21T07:13:01.420Z"
+  },
+  {
+    "yourName": "Katarina",
+    "davidDateOfBirth": "2025-11-25",
+    "davidWeight": "3.100",
+    "davidLength": "49",
+    "hasUnibrow": true,
+    "id": "670cf4f6-b91e-40c4-a721-b688ccf7b4e9",
+    "createdAt": "2025-11-21T06:16:10.580Z"
+  },
+  {
+    "yourName": "Ana",
+    "davidDateOfBirth": "2025-12-02",
+    "davidWeight": "3.8",
+    "davidLength": "3.8",
+    "hasUnibrow": false,
+    "id": "d2098de9-7f01-4866-8d72-43e4f64c3e39",
+    "createdAt": "2025-11-20T22:56:41.084Z"
+  },
+  {
+    "yourName": "Dunja",
+    "davidDateOfBirth": "2025-11-28",
+    "davidWeight": "3.34",
+    "davidLength": "49",
+    "hasUnibrow": false,
+    "id": "cb169cbf-68b1-41b5-9bc4-b1b50711aabb",
+    "createdAt": "2025-11-20T22:48:56.382Z"
+  },
+  {
+    "yourName": "Vereš",
+    "davidDateOfBirth": "2025-12-03",
+    "davidWeight": "4.050",
+    "davidLength": "53",
+    "hasUnibrow": false,
+    "id": "4bad656b-07e5-4037-8a42-69d27012c7f7",
+    "createdAt": "2025-11-20T22:19:46.658Z"
+  },
+  {
+    "yourName": "Bruno",
+    "davidDateOfBirth": "2025-11-23",
+    "davidWeight": "3.55",
+    "davidLength": "51",
+    "hasUnibrow": false,
+    "id": "5612653f-348e-413a-96b3-7bdf229d7d05",
+    "createdAt": "2025-11-20T22:19:20.677Z"
+  },
+  {
+    "yourName": "Danijel",
+    "davidDateOfBirth": "2025-12-02",
+    "davidWeight": "3.681",
+    "davidLength": "52.5",
+    "hasUnibrow": false,
+    "id": "081fe3d3-b660-4f40-b35e-2030435ba155",
+    "createdAt": "2025-11-20T22:03:15.532Z"
+  },
+  {
+    "yourName": "Hrvoje S",
+    "davidDateOfBirth": "2025-11-26",
+    "davidWeight": "3.86",
+    "davidLength": "49",
+    "hasUnibrow": true,
+    "id": "e40c5594-8547-4c57-beca-cc11d388c601",
+    "createdAt": "2025-11-20T22:02:17.777Z"
+  },
+  {
+    "yourName": "Tibor",
+    "davidDateOfBirth": "2025-11-25",
+    "davidWeight": "3.5",
+    "davidLength": "50",
+    "hasUnibrow": true,
+    "id": "d582b2ec-3c33-4777-8022-612394928f2a",
+    "createdAt": "2025-11-20T21:51:32.007Z"
+  },
+  {
+    "yourName": "Gizela",
+    "davidDateOfBirth": "2025-11-22",
+    "davidWeight": "3.320",
+    "davidLength": "50",
+    "hasUnibrow": false,
+    "id": "198b759a-9c36-438e-b22e-415e3cb3f84f",
+    "createdAt": "2025-11-20T21:50:53.357Z"
+  },
+  {
+    "yourName": "Lucija",
+    "davidDateOfBirth": "2025-11-23",
+    "davidWeight": "3.150",
+    "davidLength": "50",
+    "hasUnibrow": true,
+    "id": "1879f56c-92fd-4cdb-9314-e66359fa8f61",
+    "createdAt": "2025-11-20T21:50:18.877Z"
+  },
+  {
+    "yourName": "Nika",
+    "davidDateOfBirth": "2025-11-27",
+    "davidWeight": "3.00",
+    "davidLength": "49",
+    "hasUnibrow": false,
+    "id": "834e54fe-440d-4ea3-9863-44034eaed7bb",
+    "createdAt": "2025-11-20T21:49:42.773Z"
+  },
+  {
+    "yourName": "Paštijevi",
+    "davidDateOfBirth": "2025-11-26",
+    "davidWeight": "3.450",
+    "davidLength": "51",
+    "hasUnibrow": false,
+    "id": "b806c06a-0a5c-48e2-9be3-0d2a1fd40207",
+    "createdAt": "2025-11-20T21:47:07.456Z"
+  },
+  {
+    "yourName": "Ruža ",
+    "davidDateOfBirth": "2025-11-26",
+    "davidWeight": "3.3",
+    "davidLength": "52",
+    "hasUnibrow": false,
+    "id": "e8d7237e-3ee6-47ce-a418-4d4b04726903",
+    "createdAt": "2025-11-20T21:42:40.686Z"
+  },
+  {
+    "yourName": "Deda",
+    "davidDateOfBirth": "2025-11-25",
+    "davidWeight": "3.300",
+    "davidLength": "51",
+    "hasUnibrow": false,
+    "id": "e7e4e58e-23bd-44d6-9224-977e7ae804ef",
+    "createdAt": "2025-11-20T21:33:19.365Z"
+  },
+  {
+    "yourName": "Dijana MS",
+    "davidDateOfBirth": "2025-11-24",
+    "davidWeight": "3.95",
+    "davidLength": "51",
+    "hasUnibrow": true,
+    "id": "32b16988-5844-4a04-92c7-d594fcb4600e",
+    "createdAt": "2025-11-20T21:31:02.521Z"
+  },
+  {
+    "yourName": "BABA TETKA",
+    "davidDateOfBirth": "2025-12-04",
+    "davidWeight": "3.2",
+    "davidLength": "56",
+    "hasUnibrow": true,
+    "id": "741f93e9-7f2d-4494-a55e-7d1a8747db29",
+    "createdAt": "2025-11-20T21:30:39.876Z"
+  },
+  {
+    "yourName": "Snježa",
+    "davidDateOfBirth": "2025-11-22",
+    "davidWeight": "3.2",
+    "davidLength": "53",
+    "hasUnibrow": true,
+    "id": "aeb53e30-1aff-4c50-b8bd-32244179c29b",
+    "createdAt": "2025-11-20T21:30:03.829Z"
+  },
+  {
+    "yourName": "Tetka Ivana ",
+    "davidDateOfBirth": "2025-11-22",
+    "davidWeight": "3.36",
+    "davidLength": "48",
+    "hasUnibrow": true,
+    "id": "9dce5865-127e-45d7-bed1-08cfbdfedd7a",
+    "createdAt": "2025-11-20T21:28:24.804Z"
+  },
+  {
+    "yourName": "Dejan",
+    "davidDateOfBirth": "2025-11-21",
+    "davidWeight": "3.9",
+    "davidLength": "49",
+    "hasUnibrow": true,
+    "id": "ee937dc7-2080-4a74-9f23-ccb7c8a00c1f",
+    "createdAt": "2025-11-20T21:27:54.929Z"
+  },
+  {
+    "yourName": "ČMARKO",
+    "davidDateOfBirth": "2025-11-24",
+    "davidWeight": "3.8",
+    "davidLength": "52",
+    "hasUnibrow": true,
+    "id": "6d384375-a456-488a-a121-c75441cdc3a3",
+    "createdAt": "2025-11-20T21:27:01.260Z"
+  },
+  {
+    "yourName": "Dana",
+    "davidDateOfBirth": "2025-11-22",
+    "davidWeight": "3.350",
+    "davidLength": "49",
+    "hasUnibrow": true,
+    "id": "9a12323b-aa80-46c6-831e-0511756ef6d4",
+    "createdAt": "2025-11-20T20:55:33.045Z"
+  }
+],
+  "actuals": {
+  "date": "2025-11-22",
+  "weight": 2.7,
+  "length": 48,
+  "unibrow": false,
+  "savedAt": "2025-11-22T10:57:51.022Z"
+},
   "metadata": {
-    "created": "2025-11-19T19:49:16.724Z",
+    "created": "2025-11-21T00:00:00.000Z",
     "version": "1.0.0"
   }
 }
